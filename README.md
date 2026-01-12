@@ -1,2 +1,3 @@
 starter kit 
-add function signIn and signUp with email and password
+part 1 : add function signIn and signUp with email and password
+part 2 : add logout button

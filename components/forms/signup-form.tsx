@@ -26,16 +26,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { signIn } from "@/server/users";
+import { signUp } from "@/server/users";
 import { Badge } from "@/components/ui/badge";
 import { Spinner } from "@/components/ui/spinner";
 
 const formSchema = z.object({
+    username: z.string().min(3, "min 3 characters"),
     email: z.email("invalid email"),
     password: z.string().min(8, "min 8 characters"),
 });
 
-export function LoginForm({
+export function SignupForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
@@ -49,6 +50,7 @@ export function LoginForm({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            username: "",
             email: "",
             password: "",
         },
@@ -63,7 +65,7 @@ export function LoginForm({
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true);
-        const { success, message } = await signIn(values.email, values.password);
+        const { success, message } = await signUp(values.email, values.password, values.username);
         if (success) {
             toast.success(message as string);
             router.push("/dashboard");
@@ -78,7 +80,7 @@ export function LoginForm({
             <Card>
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Welcome back</CardTitle>
-                    <CardDescription>Login with your Google account</CardDescription>
+                    <CardDescription>signup with your Google account</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Form {...form}>
@@ -98,7 +100,7 @@ export function LoginForm({
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        Login with Google
+                                        Sign up with Google
                                         {/* {lastMethod === "google" && (
                                             <Badge className="absolute right-2 text-[9px]">
                                                 last used
@@ -111,7 +113,23 @@ export function LoginForm({
                                         Or continue with
                                     </span>
                                 </div>
+
                                 <div className="grid gap-6">
+                                    <div className="grid gap-3">
+                                        <FormField
+                                            control={form.control}
+                                            name="username"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Username</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="username" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
                                     <div className="grid gap-3">
                                         <FormField
                                             control={form.control}
@@ -164,14 +182,14 @@ export function LoginForm({
                                         {isLoading ? (
                                             <Spinner className="size-4" />
                                         ) : (
-                                            "Login"
+                                            "Sign up"
                                         )}
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
-                                    Don&apos;t have an account?{" "}
-                                    <Link className="underline underline-offset-4" href="/signup">
-                                        Sign up
+                                    Already have an account?{" "}
+                                    <Link className="underline underline-offset-4" href="/login">
+                                        Sign in
                                     </Link>
                                 </div>
                             </div>
