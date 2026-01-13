@@ -14,12 +14,13 @@ import {
 } from '@react-email/components';
 
 interface Props {
-    userEmail: string;
+    username: string;
     resetUrl: string;
+    userEmail: string;
 }
 
 const ForgotPasswordEmail = (props: Props) => {
-    const { userEmail, resetUrl, } = props;
+    const { username, resetUrl, userEmail } = props;
 
     return (
         <Html lang="en" dir="ltr">
@@ -41,7 +42,7 @@ const ForgotPasswordEmail = (props: Props) => {
                         {/* Main Content */}
                         <Section className="mb-[32px]">
                             <Text className="text-[16px] text-gray-700 leading-[24px] m-0 mb-[16px]">
-                                Hello,
+                                Hello, {username}
                             </Text>
                             <Text className="text-[16px] text-gray-700 leading-[24px] m-0 mb-[16px]">
                                 We received a request to reset the password for your account associated with{' '}
