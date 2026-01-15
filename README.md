@@ -4,4 +4,6 @@ part 2 : add logout button
 part 3 : add reset password
 part 4 : add rate limit
 part 5 : add email verification
+part 6 : add organization
+
 
