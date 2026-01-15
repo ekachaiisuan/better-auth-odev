@@ -67,8 +67,8 @@ export function SignupForm({
         setIsLoading(true);
         const { success, message } = await signUp(values.email, values.password, values.username);
         if (success) {
-            toast.success(message as string);
-            router.push("/dashboard");
+            toast.success(`${message as string} Please check your email for verification`);
+            router.push("/login");
         } else {
             toast.error(message as string);
         }

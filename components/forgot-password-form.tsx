@@ -84,7 +84,6 @@ export function ForgotPasswordForm({
                         </CardHeader>
                     </Card>
                 </div>
-
             ) : (
                 <div className={cn("flex flex-col gap-6", className)} {...props}>
                     <Card>
