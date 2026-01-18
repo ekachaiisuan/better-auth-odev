@@ -1,5 +1,4 @@
 import { CreateOrgForm } from "@/components/forms/create-org-form";
-import Logout from "@/components/logout";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -17,7 +16,6 @@ export default async function Dashboard() {
     console.log(organizations);
 
     return <div className="flex flex-col gap-2 items-center justify-center h-screen">
-        <Logout />
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline">Create Organization</Button>

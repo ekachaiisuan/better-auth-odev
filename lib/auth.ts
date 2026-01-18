@@ -7,7 +7,7 @@ import { Resend } from "resend";
 import ForgotPasswordEmail from "@/components/emails/reset-password";
 import VerifyEmail from "@/components/emails/verify-email";
 import { organization } from "better-auth/plugins";
-import { ac, adminRole, superAdminRole, userRole } from "./permissions";
+import { ac, admin, member, superAdmin } from "./permissions";
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
@@ -70,9 +70,9 @@ export const auth = betterAuth({
     plugins: [organization({
         ac,
         roles: {
-            superAdmin: superAdminRole,
-            admin: adminRole,
-            user: userRole,
+            superAdmin,
+            admin,
+            member,
         },
     }), nextCookies()]
 });

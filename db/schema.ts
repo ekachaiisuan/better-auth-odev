@@ -113,6 +113,12 @@ export const member = pgTable(
     ],
 );
 
+export type Member = typeof member.$inferSelect & {
+    user: typeof user.$inferSelect;
+};
+
+export type User = typeof user.$inferSelect;
+
 export const invitation = pgTable(
     "invitation",
     {
@@ -156,6 +162,8 @@ export const accountRelations = relations(account, ({ one }) => ({
     }),
 }));
 
+export type Organization = typeof organization.$inferSelect;
+
 export const organizationRelations = relations(organization, ({ many }) => ({
     members: many(member),
     invitations: many(invitation),
@@ -184,4 +192,4 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
 }));
 
 
-export const schema = { user, session, account, verification, organization, member, invitation }
+export const schema = { user, session, account, verification, organization, member, invitation, organizationRelations, memberRelations, invitationRelations }

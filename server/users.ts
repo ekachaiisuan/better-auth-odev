@@ -3,8 +3,30 @@ import { auth } from "@/lib/auth"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "@/db/drizzle";
-import { eq } from "drizzle-orm";
-import { user } from "@/db/schema";
+import { eq, not, inArray } from "drizzle-orm";
+import { member, user } from "@/db/schema";
+
+export const getUsers = async (organizationId: string) => {
+    try {
+        const members = await db.query.member.findMany({
+            where: eq(member.organizationId, organizationId),
+        });
+
+        const users = await db.query.user.findMany({
+            where: not(
+                inArray(
+                    user.id,
+                    members.map((m) => m.userId)
+                )
+            ),
+        });
+
+        return users;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
 
 export const getCurrentUser = async () => {
     const session = await auth.api.getSession({
