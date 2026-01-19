@@ -38,11 +38,21 @@ export function CreateOrgForm() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             setIsLoading(true);
-            await authClient.organization.create({
+            const res = await authClient.organization.create({
                 name: values.name,
                 slug: values.slug,
             });
-            toast.success("Organization created successfully");
+            if (res.error) {
+                toast.error(res.error.message || "Failed to create organization");
+            } else {
+                form.reset();
+                setIsLoading(false);
+                await authClient.organization.setActive({
+                    organizationId: res.data.id
+                });
+                toast.success("Organization created successfully");
+            }
+
         } catch (error) {
             console.log(error);
             toast.error("Failed to create organization");
