@@ -10,7 +10,7 @@ export const isAdmin = async (memberId: string) => {
             headers: await headers(),
             body: {
                 permissions: {
-                    member: ["invite", "remove", "update", "create"],
+                    member: ["update", "create", "delete"]
                 },
             },
         });

@@ -1,6 +1,5 @@
 import { getOrganizations } from "@/server/organizations";
 import Logout from "@/components/logout";
-import { ModeSwitcher } from "@/components/mode-switcher";
 import { OrganizationSwitcher } from "@/components/organization-switcher";
 
 export async function Header() {

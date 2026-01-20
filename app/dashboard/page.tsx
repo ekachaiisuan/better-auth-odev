@@ -13,7 +13,6 @@ import Link from "next/link";
 
 export default async function Dashboard() {
     const organizations = await getOrganizations();
-    console.log(organizations);
 
     return <div className="flex flex-col gap-2 items-center justify-center h-screen">
         <Dialog>

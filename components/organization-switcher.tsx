@@ -42,10 +42,10 @@ export function OrganizationSwitcher({
     return (
         <Select
             onValueChange={handleChangeOrganization}
-            value={activeOrganization?.id}
+            value={activeOrganization?.id ?? ""}
         >
             <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Select Organization" />
             </SelectTrigger>
             <SelectContent>
                 {organizations.map((organization) => (
