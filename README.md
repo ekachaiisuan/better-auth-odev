@@ -6,6 +6,5 @@ part 4 : add rate limit
 part 5 : add email verification
 part 6 : add organization
 part 7 : add permission role
-part 8 : study organization 
-
-
+part 8 : study organization remove
+part 9 : study Admin Dashboard
