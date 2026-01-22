@@ -8,6 +8,9 @@ import {
     CommandSeparator,
     CommandShortcut,
 } from "@/components/ui/command"
+import { ac } from "@/lib/permissions";
+import { getActiveOrganizationWithUser } from "@/server/organizations";
+
 import {
     CreditCard,
     LayoutDashboard,
@@ -18,7 +21,12 @@ import {
 } from "lucide-react"
 import Link from "next/link";
 
-export const Sidebar = () => {
+export const Sidebar = async () => {
+    const activeOrganization = await getActiveOrganizationWithUser()
+    if (!activeOrganization) {
+        return null
+    }
+
     return (
         <Command className="max-w-sm bg-secondary rounded-none">
             <CommandInput placeholder="Type a command or search..." />
@@ -33,8 +41,8 @@ export const Sidebar = () => {
                     </CommandItem>
                     <CommandItem>
                         <Birdhouse className="mr-2 h-4 w-4" />
-                        <Link href="/">
-                            Admin
+                        <Link href={`/dashboard/organization/${activeOrganization.slug}`}>
+                            Manage {activeOrganization.slug}
                         </Link>
                     </CommandItem>
                 </CommandGroup>

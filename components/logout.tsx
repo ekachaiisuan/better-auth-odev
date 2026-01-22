@@ -2,8 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 
 export default function Logout() {
     const router = useRouter();
@@ -12,9 +11,9 @@ export default function Logout() {
         router.push("/login");
     };
     return (
-        <Button onClick={logout}>
+        <div className="flex flex-row gap-2" onClick={logout}>
+            <LogOutIcon className="size-4" />
             Logout
-            <LogOut className="size-4" />
-        </Button>
+        </div>
     );
 }

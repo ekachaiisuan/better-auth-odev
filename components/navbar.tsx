@@ -14,11 +14,17 @@ import {
     SettingsIcon,
     UserIcon,
 } from "lucide-react"
+import { OrganizationSwitcher } from "@/components/organization-switcher";
+import { getOrganizations } from "@/server/organizations";
+import Logout from "./logout";
 
-const Navbar = () => {
+
+const Navbar = async () => {
+    const organizations = await getOrganizations();
+
     return (
         <div className="bg-primary dark:bg-slate-700 text-white py-2 px-5 flex justify-between items-center">
-            <Link href="/">Home</Link>
+            <OrganizationSwitcher organizations={organizations} />
 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild className="cursor-pointer focus:outline-none">
@@ -31,8 +37,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem variant="destructive">
-                        <LogOutIcon />
-                        Log out
+                        <Logout />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
