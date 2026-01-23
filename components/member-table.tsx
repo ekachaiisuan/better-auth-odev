@@ -8,7 +8,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Member } from "@/db/schema"
-import { Button } from "@/components/ui/button";
+import MemberTableAction from "./member-table-action";
 
 interface MemberTableProps {
     members: Member[]
@@ -32,7 +32,7 @@ export default function MemberTable({ members }: MemberTableProps) {
                         <TableCell>{member.user.email}</TableCell>
                         <TableCell>{member.role}</TableCell>
                         <TableCell className="text-right">
-                            <Button variant="outline">Remove</Button>
+                            <MemberTableAction memberId={member.id} />
                         </TableCell>
                     </TableRow>
                 ))}

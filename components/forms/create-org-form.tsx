@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
 import { Spinner } from "../ui/spinner"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters long"),
@@ -26,6 +27,7 @@ const formSchema = z.object({
 
 export function CreateOrgForm() {
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -42,6 +44,7 @@ export function CreateOrgForm() {
                 name: values.name,
                 slug: values.slug,
             });
+            router.refresh();
             if (res.error) {
                 toast.error(res.error.message || "Failed to create organization");
             } else {

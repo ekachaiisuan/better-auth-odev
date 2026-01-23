@@ -22,10 +22,10 @@ import {
 import Link from "next/link";
 
 export const Sidebar = async () => {
-    const activeOrganization = await getActiveOrganizationWithUser()
-    if (!activeOrganization) {
-        return null
-    }
+    // const activeOrganization = await getActiveOrganizationWithUser()
+    // if (!activeOrganization) {
+    //     return null
+    // }
 
     return (
         <Command className="max-w-sm bg-secondary rounded-none">
@@ -41,8 +41,8 @@ export const Sidebar = async () => {
                     </CommandItem>
                     <CommandItem>
                         <Birdhouse className="mr-2 h-4 w-4" />
-                        <Link href={`/dashboard/organization/${activeOrganization.slug}`}>
-                            Manage {activeOrganization.slug}
+                        <Link href={`/dashboard/adminManagement`}>
+                            Admin Management
                         </Link>
                     </CommandItem>
                 </CommandGroup>

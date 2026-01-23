@@ -6,6 +6,7 @@ import {
     boolean,
     index,
     uniqueIndex,
+    pgEnum
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -163,6 +164,10 @@ export const accountRelations = relations(account, ({ one }) => ({
 }));
 
 export type Organization = typeof organization.$inferSelect;
+
+export const role = pgEnum("role", ["superAdmin", "admin", "member"]);
+
+export type Role = (typeof role.enumValues)[number];
 
 export const organizationRelations = relations(organization, ({ many }) => ({
     members: many(member),
