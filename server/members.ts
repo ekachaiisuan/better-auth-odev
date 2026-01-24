@@ -25,11 +25,14 @@ export const addMember = async (
     }
 };
 
-export const removeMember = async (memberId: string) => {
-    const admin = await youAreAdmin();
+export const removeMember = async (memberId: string, organizationId: string) => {
+    const admin = await youAreAdmin(organizationId);
 
     if (!admin) {
-        throw new Error("You are not authorized to remove members.");
+        return {
+            success: false,
+            error: "You are not authorized to remove members.",
+        };
     }
 
     try {
@@ -40,7 +43,10 @@ export const removeMember = async (memberId: string) => {
         };
     } catch (error) {
         console.error(error);
-        throw new Error("Failed to remove member.");
+        return {
+            success: false,
+            error: "Failed to remove member.",
+        };
     }
 };
 

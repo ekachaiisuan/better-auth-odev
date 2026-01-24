@@ -22,10 +22,7 @@ import {
 import Link from "next/link";
 
 export const Sidebar = async () => {
-    // const activeOrganization = await getActiveOrganizationWithUser()
-    // if (!activeOrganization) {
-    //     return null
-    // }
+
 
     return (
         <Command className="max-w-sm bg-secondary rounded-none">

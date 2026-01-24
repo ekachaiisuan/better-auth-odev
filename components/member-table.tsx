@@ -32,7 +32,7 @@ export default function MemberTable({ members }: MemberTableProps) {
                         <TableCell>{member.user.email}</TableCell>
                         <TableCell>{member.role}</TableCell>
                         <TableCell className="text-right">
-                            <MemberTableAction memberId={member.id} />
+                            <MemberTableAction memberId={member.id} organizationId={member.organizationId} />
                         </TableCell>
                     </TableRow>
                 ))}

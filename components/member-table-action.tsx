@@ -9,20 +9,28 @@ import { useRouter } from "next/navigation";
 
 interface MemberTableActionProps {
     memberId: string;
+    organizationId: string;
 }
 
-export default function MemberTableAction({ memberId }: MemberTableActionProps) {
+export default function MemberTableAction({ memberId, organizationId }: MemberTableActionProps) {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const handleRemoveMember = async () => {
+        if (!organizationId) {
+            toast.error("No organization selected");
+            return;
+        }
         try {
             setLoading(true);
-            const result = await removeMember(memberId);
-            if (result.success) {
-                toast.success("Member removed successfully");
-                router.refresh();
+
+            const result = await removeMember(memberId, organizationId);
+            if (!result.success) {
+                toast.error(result.error);
+                return;
             }
+            toast.success("Member removed successfully");
+            router.refresh();
         } catch (error) {
             console.error(error);
             toast.error("Failed to remove member");

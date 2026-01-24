@@ -17,30 +17,38 @@ import {
 import { OrganizationSwitcher } from "@/components/organization-switcher";
 import { getOrganizations } from "@/server/organizations";
 import Logout from "./logout";
+import { getCurrentUser } from "@/server/users";
 
 
 const Navbar = async () => {
     const organizations = await getOrganizations();
+    const user = await getCurrentUser();
 
     return (
         <div className="bg-primary dark:bg-slate-700 text-white py-2 px-5 flex justify-between items-center">
             <OrganizationSwitcher organizations={organizations} />
+            <div className="flex items-center gap-2">
+                <div className="flex text-white">
+                    welcome{" "}{user.currentUser.name}
+                </div>
 
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild className="cursor-pointer focus:outline-none">
-                    <AvatarDemo src={"https://github.com/shadcn.png"} fallback="CN" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem>
-                        <UserIcon />
-                        <Link href="/dashboard/profile">Profile</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem variant="destructive">
-                        <Logout />
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild className="cursor-pointer focus:outline-none">
+                        <AvatarDemo src={"https://github.com/shadcn.png"} fallback="CN" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem>
+                            <UserIcon />
+                            <Link href="/dashboard/profile">Profile</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem variant="destructive">
+                            <Logout />
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
+            </div>
 
         </div>
     )

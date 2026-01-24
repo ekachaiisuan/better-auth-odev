@@ -9,3 +9,4 @@ part 7 : add permission role
 part 8 : study organization remove
 part 9 : study Admin Dashboard
 part 10 : removeMember function bug
+part 11 : handle organization hooks

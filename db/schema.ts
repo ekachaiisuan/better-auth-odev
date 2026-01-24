@@ -165,7 +165,7 @@ export const accountRelations = relations(account, ({ one }) => ({
 
 export type Organization = typeof organization.$inferSelect;
 
-export const role = pgEnum("role", ["superAdmin", "admin", "member"]);
+export const role = pgEnum("role", ["admin", "member"]);
 
 export type Role = (typeof role.enumValues)[number];
 
