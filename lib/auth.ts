@@ -8,6 +8,7 @@ import ForgotPasswordEmail from "@/components/emails/reset-password";
 import VerifyEmail from "@/components/emails/verify-email";
 import { organization } from "better-auth/plugins";
 import { ac, admin, member, owner } from "./permissions";
+import { getActiveOrganization } from "@/server/organizations";
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
@@ -16,6 +17,22 @@ export const auth = betterAuth({
         provider: "pg",
         schema,
     }),
+    databaseHooks: {
+        session: {
+            create: {
+                before: async (session) => {
+                    const organization = await getActiveOrganization(session.userId);
+
+                    return {
+                        data: {
+                            ...session,
+                            activeOrganizationId: organization?.id,
+                        },
+                    };
+                },
+            },
+        },
+    },
     emailVerification: {
         sendVerificationEmail: async ({ user, url }, request) => {
             await resend.emails.send({

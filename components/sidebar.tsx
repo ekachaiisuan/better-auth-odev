@@ -20,6 +20,7 @@ import {
 
 } from "lucide-react"
 import Link from "next/link";
+import Logout from "@/components/logout";
 
 export const Sidebar = async () => {
 
@@ -47,13 +48,20 @@ export const Sidebar = async () => {
                 <CommandGroup heading="Settings">
                     <CommandItem>
                         <User />
-                        <span>Profile</span>
+                        <Link href="/dashboard/profile">
+                            Profile
+                        </Link>
                         <CommandShortcut>⌘P</CommandShortcut>
                     </CommandItem>
                     <CommandItem>
                         <Settings />
                         <span>Settings</span>
                         <CommandShortcut>⌘S</CommandShortcut>
+                    </CommandItem>
+                    <CommandItem className="text-red-500 cursor-pointer">
+                        <Logout />
+
+                        <CommandShortcut>⌘L</CommandShortcut>
                     </CommandItem>
                 </CommandGroup>
             </CommandList>

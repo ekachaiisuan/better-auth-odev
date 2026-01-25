@@ -12,12 +12,15 @@ import { getOrganizations } from "@/server/organizations";
 import Link from "next/link";
 import DashboardCard from "@/components/dashboard-card";
 import { Users } from "lucide-react";
+import { OrganizationSwitcher } from "@/components/organization-switcher";
+
 
 export default async function AdminManagement() {
     const organizations = await getOrganizations();
 
     return (
         <>
+            <OrganizationSwitcher organizations={organizations} />
             <Dialog>
                 <DialogTrigger asChild>
                     <Button variant="outline">Create Organization</Button>

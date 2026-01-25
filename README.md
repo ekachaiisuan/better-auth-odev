@@ -10,3 +10,7 @@ part 8 : study organization remove
 part 9 : study Admin Dashboard
 part 10 : removeMember function bug
 part 11 : handle organization hooks
+part 12 : before create session handle active organization
+part 13 : handle middleware has active organization
+
+

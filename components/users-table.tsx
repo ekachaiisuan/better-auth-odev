@@ -59,7 +59,10 @@ export default function AllUsers({ users, organizationId }: AllUserProps) {
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>
-                                <Badge variant={user.emailVerified ? "default" : "destructive"}>
+                                <Badge
+                                    variant={user.emailVerified ? "default" : "destructive"}
+                                    className={user.emailVerified ? "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300" : ""}
+                                >
                                     {user.emailVerified ? "verified" : "not verified"}
                                 </Badge>
                             </TableCell>

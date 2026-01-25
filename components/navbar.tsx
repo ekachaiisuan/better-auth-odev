@@ -14,19 +14,24 @@ import {
     SettingsIcon,
     UserIcon,
 } from "lucide-react"
-import { OrganizationSwitcher } from "@/components/organization-switcher";
-import { getOrganizations } from "@/server/organizations";
+
 import Logout from "./logout";
 import { getCurrentUser } from "@/server/users";
+import OrganizationActive from "@/components/organization-active";
+
+
 
 
 const Navbar = async () => {
-    const organizations = await getOrganizations();
     const user = await getCurrentUser();
+
 
     return (
         <div className="bg-primary dark:bg-slate-700 text-white py-2 px-5 flex justify-between items-center">
-            <OrganizationSwitcher organizations={organizations} />
+            <div>
+                Demo
+            </div>
+
             <div className="flex items-center gap-2">
                 <div className="flex text-white">
                     welcome{" "}{user.currentUser.name}
