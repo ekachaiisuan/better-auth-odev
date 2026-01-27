@@ -14,5 +14,7 @@ part 12 : before create session handle active organization
 part 13 : handle middleware has active organization
 part 14 : road to RagChatbot
 part 15 : add route api/chat
+part 16 : upload pdf file to database
+
 
 

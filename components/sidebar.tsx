@@ -43,6 +43,12 @@ export const Sidebar = async () => {
                             Admin Management
                         </Link>
                     </CommandItem>
+                    <CommandItem>
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        <Link href={`/dashboard/chat`}>
+                            Chat
+                        </Link>
+                    </CommandItem>
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Settings">

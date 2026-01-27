@@ -6,7 +6,9 @@ import {
     boolean,
     index,
     uniqueIndex,
-    pgEnum
+    pgEnum,
+    serial,
+    vector
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -196,5 +198,16 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
     }),
 }));
 
+export const documents = pgTable("documents", {
+    id: serial("id").primaryKey(),
+    content: text("content").notNull(),
+    embedding: vector("embedding", { dimensions: 1536 })
+}, (table) => [
+    index("embeddingIndex").using("hnsw", table.embedding.op("vector_cosine_ops"))
+]);
 
-export const schema = { user, session, account, verification, organization, member, invitation, organizationRelations, memberRelations, invitationRelations }
+export type InsertDocument = typeof documents.$inferInsert;
+export type SelectDocument = typeof documents.$inferSelect;
+
+
+export const schema = { user, session, account, verification, organization, member, invitation, organizationRelations, memberRelations, invitationRelations, documents }
