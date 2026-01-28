@@ -9,11 +9,13 @@ import { chunkContent } from "@/lib/chunking";
 export async function processPdfFile(formData: FormData) {
     try {
         const file = formData.get("pdf") as File;
+        const documentId = formData.get("documentId") as string;
 
         // Convert File to Buffer and extract text
         const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        const pdf = new PDFParse(buffer);
+        const uint8Array = new Uint8Array(bytes);
+
+        const pdf = new PDFParse(uint8Array);
         const data = await pdf.getText();
 
         if (!data.text || data.text.trim().length === 0) {
@@ -33,6 +35,7 @@ export async function processPdfFile(formData: FormData) {
         const records = chunks.map((chunk, index) => ({
             content: chunk,
             embedding: embeddings[index],
+            documentId: documentId,
         }));
 
         await db.insert(documents).values(records);

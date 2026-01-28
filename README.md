@@ -15,6 +15,4 @@ part 13 : handle middleware has active organization
 part 14 : road to RagChatbot
 part 15 : add route api/chat
 part 16 : upload pdf file to database
-
-
-
+part 17 : processPdfFile function finished can upload pdf file to database

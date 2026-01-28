@@ -49,6 +49,12 @@ export const Sidebar = async () => {
                             Chat
                         </Link>
                     </CommandItem>
+                    <CommandItem>
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        <Link href={`/dashboard/upload`}>
+                            Upload PDF
+                        </Link>
+                    </CommandItem>
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Settings">

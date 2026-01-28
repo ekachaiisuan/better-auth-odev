@@ -200,8 +200,11 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
 
 export const documents = pgTable("documents", {
     id: serial("id").primaryKey(),
+    documentId: text("document_id").notNull(),
     content: text("content").notNull(),
-    embedding: vector("embedding", { dimensions: 1536 })
+    embedding: vector("embedding", { dimensions: 1536 }),
+    status: text("status").default("active"),
+    createdAt: timestamp("created_at").defaultNow(),
 }, (table) => [
     index("embeddingIndex").using("hnsw", table.embedding.op("vector_cosine_ops"))
 ]);
