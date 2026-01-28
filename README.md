@@ -16,3 +16,5 @@ part 14 : road to RagChatbot
 part 15 : add route api/chat
 part 16 : upload pdf file to database
 part 17 : processPdfFile function finished can upload pdf file to database
+----- finished embedding -----
+part 18 : searchDocuments function finished can search documents
