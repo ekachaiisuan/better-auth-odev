@@ -1,23 +1,20 @@
-import Navbar from "@/components/navbar";
-import { Sidebar } from "@/components/sidebar";
+import Navbar from '@/components/navbar';
+import { Sidebar } from '@/components/sidebar';
 
 export default function DashboardLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <Navbar />
-            <div className="flex">
-                <div className="hidden md:block h-[100vh] w-[250px]">
-                    <Sidebar />
-                </div>
-                <div className="p-5 w-full md:max-w-[1140px]">
-                    {children}
-                </div>
-            </div>
-
-        </>
-    );
+  return (
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div className="flex flex-1">
+        <div className="hidden md:block w-62.5">
+          <Sidebar />
+        </div>
+        <div className="p-5 w-full md:max-w-285">{children}</div>
+      </div>
+    </div>
+  );
 }
