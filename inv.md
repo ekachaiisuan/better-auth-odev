@@ -1,0 +1,15 @@
+model Product {
+    id String @id @default(cuid())
+    userId String
+    name String
+    sku String? @unique
+    price Decimal @db.Decimal(12, 2)
+    quantity Int @default(0)
+    lowStock Int?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId,name])
+    @@index([createdAt])
+}
