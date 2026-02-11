@@ -5,6 +5,7 @@ import { products } from '@/db/schema';
 import { getCurrentUser } from '@/server/users';
 import { TrendingUp } from 'lucide-react';
 import ProductsChart from '@/components/inv-manage/products-chart';
+import { CellPieChart } from '@/components/inv-manage/cellpie-chart';
 
 export default async function DashboardInventoryPage() {
   const { currentUser } = await getCurrentUser();
@@ -131,13 +132,11 @@ export default async function DashboardInventoryPage() {
             </div>
           </div>
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-gray-900">
                 New products per week
               </h2>
-              <div className="h-48">
-                <ProductsChart data={weeklyProductsData} />
-              </div>
+              <ProductsChart data={weeklyProductsData} />
             </div>
           </div>
         </div>
@@ -175,8 +174,8 @@ export default async function DashboardInventoryPage() {
               </h2>
             </div>
             <div className="flex items-center justify-center">
-              <div className="relative w-47 h-48">
-                
+              <div className="relative w-96 h-96">
+                <CellPieChart data={recent} />
               </div>
             </div>
           </div>
