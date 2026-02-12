@@ -4,6 +4,7 @@ import { eq, ilike, and, count, desc } from 'drizzle-orm';
 import { products } from '@/db/schema';
 import { getCurrentUser } from '@/server/users';
 import Pagination from '@/components/inv-manage/pagination';
+import { redirect } from 'next/navigation';
 
 export default async function Inventory({
   searchParams,
@@ -12,11 +13,14 @@ export default async function Inventory({
 }) {
   const { currentUser } = await getCurrentUser();
   const userId = currentUser.id;
+
   const params = await searchParams;
+
   const pageSize = 10;
+  const keyword = (params.q ?? "").trim();
+  const currentPage = Math.max(1, Number(params.page ?? 1));
 
-  const keyword = (params.q ?? '').trim();
-
+  // ---------- WHERE CONDITION ----------
   const conditions = [eq(products.userId, userId)];
 
   if (keyword) {
@@ -24,24 +28,50 @@ export default async function Inventory({
   }
 
   const whereCondition = and(...conditions);
-  const currentPage = Math.max(1, Number(params.page ?? 1));
 
-  const offset = (currentPage - 1) * pageSize;
+  // ---------- 1️⃣ COUNT ----------
+  const countResult = await db
+    .select({ value: count() })
+    .from(products)
+    .where(whereCondition);
 
-  const [totalCount, allProducts] = await Promise.all([
-    db.select({ value: count() }).from(products).where(whereCondition),
-    db
-      .select()
-      .from(products)
-      .where(whereCondition)
-      .limit(pageSize)
-      .offset(offset)
-      .orderBy(desc(products.createdAt)),
-  ]);
+  const total = countResult[0]?.value ?? 0;
 
-  const total = totalCount[0]?.value ?? 0;
+  // ---------- ถ้าไม่มีข้อมูล ----------
+  if (total === 0) {
+    return (
+      <div className="text-center py-10 text-muted-foreground">
+        No products found.
+      </div>
+    );
+  }
 
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  // ---------- 2️⃣ TOTAL PAGES ----------
+  const totalPages = Math.ceil(total / pageSize);
+
+  // ---------- 3️⃣ SAFE PAGE ----------
+  if (currentPage > totalPages) {
+    const query = new URLSearchParams();
+    if (keyword) query.set("q", keyword);
+    query.set("page", totalPages.toString());
+
+    redirect(`/dashboard-inventory/inventory?${query.toString()}`);
+  }
+
+  const safePage = currentPage;
+
+  // ---------- 4️⃣ OFFSET ----------
+  const offset = (safePage - 1) * pageSize;
+
+  // ---------- 5️⃣ QUERY DATA ----------
+  const allProducts = await db
+    .select()
+    .from(products)
+    .where(whereCondition)
+    .orderBy(desc(products.createdAt))
+    .limit(pageSize)
+    .offset(offset);
+  
 
   const handleDelete = async (formData: FormData) => {
     'use server';
