@@ -1,9 +1,6 @@
 import Sidebar from '@/components/inv-manage/sidebar';
-import { db } from '@/db/drizzle';
-import { eq } from 'drizzle-orm';
-import { products } from '@/db/schema';
 import { getCurrentUser } from '@/server/users';
-import { FormaddInvoice } from '@/components/inv-manage/form-add-invoice';
+import { FormAddInvoice } from '@/components/inv-manage/form-add-invoice';
 
 export default async function AddProductPage() {
   const { currentUser } = await getCurrentUser();
@@ -25,7 +22,7 @@ export default async function AddProductPage() {
           </div>
         </div>
         <div className="max-w-2xl">
-          <FormaddInvoice />
+          <FormAddInvoice />
         </div>
       </main>
     </div>
